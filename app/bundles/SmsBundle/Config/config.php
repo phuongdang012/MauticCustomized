@@ -111,6 +111,7 @@ return [
                     'mautic.sms.model.sms',
                     'mautic.helper.integration',
                     'mautic.lead.model.dnc',
+                    '%mautic.sms_transport%',
                 ],
                 'alias' => 'sms_helper',
             ],
