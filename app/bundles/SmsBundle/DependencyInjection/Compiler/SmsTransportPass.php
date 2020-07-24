@@ -16,9 +16,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class SmsTransportPass implements CompilerPassInterface
 {
-    /**
-     * @var ContainerBuilder
-     */
     private $container;
 
     public function process(ContainerBuilder $container)
@@ -36,9 +33,17 @@ class SmsTransportPass implements CompilerPassInterface
         }
 
         $definition     = $this->container->getDefinition('mautic.sms.transport_chain');
+        $helperDef      = $this->container->getDefinition('mautic.helper.sms');
         $taggedServices = $this->container->findTaggedServiceIds('mautic.sms_transport');
         foreach ($taggedServices as $id => $tags) {
             $definition->addMethodCall('addTransport', [
+                $id,
+                new Reference($id),
+                !empty($tags[0]['alias']) ? $tags[0]['alias'] : $id,
+                !empty($tags[0]['integrationAlias']) ? $tags[0]['integrationAlias'] : $id,
+            ]);
+
+            $helperDef->addMethodCall('addTransport', [
                 $id,
                 new Reference($id),
                 !empty($tags[0]['alias']) ? $tags[0]['alias'] : $id,
