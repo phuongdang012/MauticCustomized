@@ -17,21 +17,14 @@ class InputHelper
 {
     /**
      * String filter.
-     *
-     * @var InputFilter
      */
     private static $stringFilter;
 
     /**
      * HTML filter.
-     *
-     * @var InputFilter
      */
     private static $htmlFilter;
 
-    /**
-     * @var InputFilter
-     */
     private static $strictHtmlFilter;
 
     /**
@@ -74,7 +67,11 @@ class InputHelper
                     'strong',
                     'a',
                     'span',
-                ], [], 0, 1);
+                ],
+                [],
+                0,
+                1
+            );
 
             self::$strictHtmlFilter->attrBlacklist = [
                 'codebase',
@@ -405,7 +402,7 @@ class InputHelper
             if (!empty($matches[0])) {
                 $from = [];
                 $to   = [];
-                foreach ($matches[0] as $key=>$match) {
+                foreach ($matches[0] as $key => $match) {
                     $from[]   = $match;
                     $startTag = '<mcondition>';
                     $endTag   = '</mcondition>';
@@ -424,7 +421,10 @@ class InputHelper
                 function ($matches) {
                     return '<mencoded>'.htmlspecialchars($matches[0]).'</mencoded>';
                 },
-                $value, -1, $needsDecoding);
+                $value,
+                -1,
+                $needsDecoding
+            );
 
             // Slecial handling for script tags
             $value = preg_replace_callback(
@@ -432,7 +432,10 @@ class InputHelper
                 function ($matches) {
                     return '<mscript>'.base64_encode($matches[0]).'</mscript>';
                 },
-                $value, -1, $needsScriptDecoding);
+                $value,
+                -1,
+                $needsScriptDecoding
+            );
 
             // Special handling for HTML comments
             $value = str_replace(['<!-->', '<!--', '-->'], ['<mcomment></mcomment>', '<mcomment>', '</mcomment>'], $value, $commentCount);
@@ -464,7 +467,8 @@ class InputHelper
                     function ($matches) {
                         return htmlspecialchars_decode($matches[1]);
                     },
-                    $value);
+                    $value
+                );
             }
 
             if ($needsScriptDecoding) {
@@ -473,7 +477,8 @@ class InputHelper
                     function ($matches) {
                         return base64_decode($matches[1]);
                     },
-                    $value);
+                    $value
+                );
             }
         }
 
@@ -513,6 +518,6 @@ class InputHelper
             return $trans->transliterate($value);
         }
 
-        return \URLify::transliterate($value);
+        return \URLify::transliterate(!is_null($value) ? $value : '');
     }
 }
