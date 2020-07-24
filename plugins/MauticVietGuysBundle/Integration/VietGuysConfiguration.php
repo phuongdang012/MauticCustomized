@@ -1,9 +1,9 @@
 <?php
 
-namespace MauticPlugin\MauticVietGuysBundle\Integration\VietGuys;
+namespace MauticPlugin\MauticVietGuysBundle\Integration;
 
 use Mautic\PluginBundle\Helper\IntegrationHelper;
-use VietGuys\Exception\VietGuysException;
+use VietGuys\SDK\Exceptions\VietGuysException;
 
 class VietGuysConfiguration
 {

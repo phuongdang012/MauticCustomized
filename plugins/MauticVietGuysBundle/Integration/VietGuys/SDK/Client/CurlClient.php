@@ -1,9 +1,9 @@
 <?php
 
-namespace VietGuys\Client;
+namespace MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Client;
 
-use VietGuys\Client\Response;
-use VietGuys\Exception\VietGuysException;
+use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Client\Response;
+use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Exceptions\VietGuysException;
 
 class CurlClient
 {

@@ -1,17 +1,15 @@
 <?php
 
-namespace MauticPlugin\MauticVietGuysBundle\Integration\VietGuys;
+namespace MauticPlugin\MauticVietGuysBundle\Integration;
 
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
-use Mautic\SmsBundle\Controller\Api\SmsApiController;
 use Mautic\SmsBundle\Sms\TransportInterface;
 use Psr\Log\LoggerInterface;
-use VietGuys\Exception\VietGuysException;
-use VietGuys\Rest\VietGuysRestClient;
+use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Exceptions\VietGuysException;
+use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Rest\RestClient;
 
 class VietGuysTransport implements TransportInterface
 {
@@ -34,15 +32,15 @@ class VietGuysTransport implements TransportInterface
         }
         try {
             $this->configureClient();
-            $this->restClient->create(
-                com_create_guid(),
+            $response = $this->restClient->create(
+                $this->generateGuid(),
                 $this->sanitizeNumber($number),
                 $content
             );
             $this->logger->debug(
                 'VietGuys text message sent!',
                 [
-                    'content' => $content,
+                    'content' => $response,
                 ]
             );
         } catch (NumberParseException $ex) {
@@ -84,10 +82,19 @@ class VietGuysTransport implements TransportInterface
             return;
         }
 
-        $this->restClient = new VietGuysRestClient(
+        $this->restClient = new RestClient(
             $this->configuration->getUsername(),
             $this->configuration->getPassword(),
             $this->configuration->getSender()
         );
+    }
+
+    private function generateGuid()
+    {
+        if (function_exists('com_create_guid') === true) {
+            return trim(com_create_guid(), '{}');
+        }
+
+        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
 }

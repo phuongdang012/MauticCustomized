@@ -1,11 +1,11 @@
 <?php
 
-namespace VietGuys\Rest;
+namespace MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Rest;
 
-use VietGuys\Client\CurlClient;
-use VietGuys\Exception\VietGuysException;
+use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Client\CurlClient;
+use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Exceptions\VietGuysException;
 
-class VietGuysRestClient
+class RestClient
 {
     const ENV_USERNAME = 'USERNAME';
     const ENV_PASSWORD = 'PASSWORD';
@@ -73,7 +73,7 @@ class VietGuysRestClient
      */
     public function create($transactionId, $phoneNumber, $smsBody, $timeout = null)
     {
-        $data = [
+        $data = json_encode([
             'u'     => $this->username,
             'pwd'   => $this->password,
             'from'  => $this->sender,
@@ -82,7 +82,7 @@ class VietGuysRestClient
             'bid'   => $transactionId,
             'type'  => 1,
             'json'  => 0,
-        ];
+        ]);
 
         return $this->getClient()->request(
             'https://cloudsms.vietguys.biz:4438/api/index.php',

@@ -38,16 +38,36 @@ return [
                 ],
             ],
         ],
+        // 'helper' => [
+        //     'vietguys.rest_client' => [
+        //         'class' => \VietGuys\SDK\Rest\RestClient::class,
+        //         'arguments' => [],
+        //     ],
 
+        //     'vietguys.client' => [
+        //         'class' => \VietGuys\SDK\Client\CurlClient::class,
+        //         'arguments' => [],
+        //     ],
+
+        //     'vietguys.model.response' => [
+        //         'class' => \VietGuys\SDK\Client\Response::class,
+        //         'arguments' => [],
+        //     ],
+
+        //     'vietguys.exception' => [
+        //         'class' => \VietGuys\SDK\Exceptions\VietGuysException::class,
+        //         'arguments' => [],
+        //     ],
+        // ],
         'other' => [
             'mautic.sms.vietguys.configuration' => [
-                'class'        => \MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\VietGuysConfiguration::class,
+                'class'        => \MauticPlugin\MauticVietGuysBundle\Integration\VietGuysConfiguration::class,
                 'arguments'    => [
                     'mautic.helper.integration',
                 ],
             ],
             'mautic.sms.vietguys.transport' => [
-                'class'        => \MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\VietGuysTransport::class,
+                'class'        => \MauticPlugin\MauticVietGuysBundle\Integration\VietGuysTransport::class,
                 'arguments'    => [
                     'mautic.sms.vietguys.configuration',
                     'monolog.logger.mautic',

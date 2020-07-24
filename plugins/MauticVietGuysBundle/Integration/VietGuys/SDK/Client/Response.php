@@ -1,6 +1,6 @@
 <?php
 
-namespace VietGuys\Client;
+namespace MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Client;
 
 class Response
 {
@@ -37,6 +37,6 @@ class Response
 
     public function __toString()
     {
-        return '[Response] HTTP '.$this->getStatusCode().' '.$this->content;
+        return '[Response] HTTP ' . $this->getStatusCode() . ' ' . $this->content;
     }
 }
