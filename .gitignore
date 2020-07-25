@@ -89,6 +89,7 @@
 !/plugins/MauticSocialBundle
 !/plugins/MauticZapierBundle
 !/plugins/MauticStringeeBundle
+!/plugins/MauticVietGuysBundle
 !/plugins/index.html
 
 /themes/*
