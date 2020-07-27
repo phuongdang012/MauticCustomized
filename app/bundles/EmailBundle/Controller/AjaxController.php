@@ -198,7 +198,7 @@ class AjaxController extends CommonAjaxController
 
             switch ($transport) {
                 case 'gmail':
-                    $mailer = new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls');
+                    $mailer = new \Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl');
                     break;
                 case 'smtp':
                     $mailer = new \Swift_SmtpTransport($settings['host'], $settings['port'], $settings['encryption']);
