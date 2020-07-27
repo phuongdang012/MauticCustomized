@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  mautic-3.0:
+    image: mautic-3.0
+    environment:
+      NODE_ENV: development
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000

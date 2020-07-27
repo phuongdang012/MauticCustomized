@@ -34,13 +34,6 @@ class StringeeIntegration extends AbstractIntegration
         return 'none';
     }
 
-    public function getSupportedFeatures()
-    {
-        return [
-            'sms',
-        ];
-    }
-
     public function appendToForm(&$builder, $data, $formArea)
     {
         if ('features' == $formArea) {
