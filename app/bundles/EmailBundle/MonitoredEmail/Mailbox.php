@@ -220,8 +220,7 @@ class Mailbox
 
         return
             !empty($this->settings['host']) && !empty($this->settings['port']) && !empty($this->settings['user'])
-            && !empty($this->settings['password'])
-        ;
+            && !empty($this->settings['password']);
     }
 
     /**
@@ -284,7 +283,7 @@ class Mailbox
         if (!isset($settings['encryption'])) {
             $settings['encryption'] = (!empty($settings['ssl'])) ? '/ssl' : '';
         }
-        $path     = "{{$settings['host']}:{$settings['port']}/imap{$settings['encryption']}}";
+        $path     = "{{$settings['host']}:{$settings['port']}/imap{$settings['encryption']}/novalidate-cert}"; //LOG: Need to change in future, this can cause Man In Middle attacks
         $fullPath = $path;
 
         if (isset($settings['folder'])) {
