@@ -90,6 +90,7 @@
 !/plugins/MauticZapierBundle
 !/plugins/MauticStringeeBundle
 !/plugins/MauticVietGuysBundle
+!/plugins/MauticeSMSBundle
 !/plugins/index.html
 
 /themes/*

@@ -39,6 +39,7 @@
     "symfony/finder": "~3.4.0",
     "symfony/http-foundation": "~3.4.0",
     "symfony/http-kernel": "~3.4.0",
+    "symfony/http-client": "^4.4.0",
     "symfony/filesystem": "~3.4.0",
     "symfony/routing": "~3.4.0",
     "symfony/security-core": "~3.4.0",
@@ -107,7 +108,8 @@
     "barryvdh/elfinder-flysystem-driver": "^0.2.1",
     "firebase/php-jwt": "^5.2",
     "php-amqplib/php-amqplib": "^2.11",
-    "symfony/apache-pack": "^1.0"
+    "symfony/apache-pack": "^1.0",
+    "kreait/firebase-bundle": "^2.2"
   },
   "require-dev": {
     "symfony/web-profiler-bundle": "~3.4.0",
