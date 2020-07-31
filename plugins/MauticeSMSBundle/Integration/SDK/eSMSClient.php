@@ -3,7 +3,7 @@
 namespace MauticPlugin\MauticeSMSBundle\Integration\SDK;
 
 use Exception;
-use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\CurlHttpClient;
 
 class eSMSClient
 {
@@ -16,7 +16,7 @@ class eSMSClient
     public function __construct($apiKey, $secret, $smsType, $sender = null)
     {
         if (!$this->httpClient) {
-            $this->httpClient = HttpClient::create();
+            $this->httpClient = new CurlHttpClient();
         }
         $this->apiKey  = $apiKey;
         $this->secret  = $secret;
@@ -29,20 +29,25 @@ class eSMSClient
         $url = 'http://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json/';
 
         $options = [
-            'body' => [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'body' => json_encode([
                 'ApiKey'                                 => $this->apiKey,
                 'SecretKey'                              => $this->secret,
                 'Content'                                => $smsBody,
                 'Phone'                                  => $phoneNumber,
-                'SmsType'                                => $this->smsType,
-                null == $this->sender ? '' : 'Brandname' => $this->sender,
-            ],
+                'SmsType'                                => strval($this->smsType),
+            ]),
         ];
+        if (null != $this->sender) {
+            $options['body']['Brandname'] = $this->sender;
+        }
 
         $response = $this->httpClient->request('POST', $url, $options);
 
-        echo 'eSMS Response: ' + $response;
-        echo $response->getContent();
+        // echo ('eSMS Response: ' + $response);
+        // echo ($response->getContent());
 
         if (
             200 <= $response->getStatusCode() &&

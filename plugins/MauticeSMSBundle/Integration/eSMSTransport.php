@@ -32,16 +32,14 @@ class eSMSTransport implements TransportInterface
         }
         try {
             $this->configureClient();
-            $response = $this->client->create(
-                $this->sanitizeNumber($number),
-                $content
-            );
-            switch ($response->getCodeResponse()) {
+            $response = $this->client->create($number, $content);
+            switch ($response->getCodeResult()) {
                 case 100:
-                    $this->logger->info('eSMS sent!!');
+                    $this->logger->info('eSMS text message sent!!');
                     break;
                 default:
                     $this->logger->error($response->translateCodeToError());
+                    break;
             }
         } catch (NumberParseException $ex) {
             $this->logger->warning(
@@ -66,14 +64,6 @@ class eSMSTransport implements TransportInterface
 
             return $ex->getMessage();
         }
-    }
-
-    public function sanitizeNumber($number)
-    {
-        $util   = PhoneNumberUtil::getInstance();
-        $parsed = $util->parse($number, 'VN');
-
-        return $util->format($parsed, PhoneNumberFormat::E164);
     }
 
     public function configureClient()

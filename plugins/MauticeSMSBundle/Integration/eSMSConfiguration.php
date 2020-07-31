@@ -53,7 +53,7 @@ class eSMSConfiguration
 
         $integration = $this->integrationHelper->getIntegrationObject('eSMS');
 
-        if (!$integration || $integration->getIntegrationSettings()->getIsPublished()) {
+        if (!$integration || !$integration->getIntegrationSettings()->getIsPublished()) {
             throw new Exception('eSMS plugin not enabled');
         }
 
