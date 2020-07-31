@@ -33,11 +33,11 @@ class eSMSClient
                 'Content-Type' => 'application/json',
             ],
             'body' => json_encode([
-                'ApiKey'                                 => $this->apiKey,
-                'SecretKey'                              => $this->secret,
-                'Content'                                => $smsBody,
-                'Phone'                                  => $phoneNumber,
-                'SmsType'                                => strval($this->smsType),
+                'ApiKey'    => $this->apiKey,
+                'SecretKey' => $this->secret,
+                'Content'   => $smsBody,
+                'Phone'     => $phoneNumber,
+                'SmsType'   => strval($this->smsType),
             ]),
         ];
         if (null != $this->sender) {
@@ -45,9 +45,6 @@ class eSMSClient
         }
 
         $response = $this->httpClient->request('POST', $url, $options);
-
-        // echo ('eSMS Response: ' + $response);
-        // echo ($response->getContent());
 
         if (
             200 <= $response->getStatusCode() &&
