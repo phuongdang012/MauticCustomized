@@ -17,7 +17,7 @@ class eSMSIntegration extends AbstractIntegration
 
     public function getIcon()
     {
-        return 'plugins/MauticSMSBundle/Assets/img/esms.png';
+        return 'plugins/MauticeSMSBundle/Assets/img/esms.png';
     }
 
     public function getIdentifierFields()

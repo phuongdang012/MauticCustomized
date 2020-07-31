@@ -2,7 +2,7 @@
 
 return [
     'name'        => 'eSMS',
-    'description' => 'Enables integration with Mautic supported eSMS collaboration products.',
+    'description' => 'Enables integration with Mautic supported eSMS.',
     'version'     => '1.0',
     'author'      => 'Tran Thanh Phuong Dang',
 
