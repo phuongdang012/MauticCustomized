@@ -7,9 +7,9 @@ use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 use Mautic\LeadBundle\Entity\Lead;
 use Mautic\SmsBundle\Sms\TransportInterface;
+use MauticPlugin\MauticVietGuysBundle\Integration\SDK\Client\RestClient;
+use MauticPlugin\MauticVietGuysBundle\Integration\SDK\Exceptions\VietGuysException;
 use Psr\Log\LoggerInterface;
-use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Exceptions\VietGuysException;
-use MauticPlugin\MauticVietGuysBundle\Integration\VietGuys\SDK\Rest\RestClient;
 
 class VietGuysTransport implements TransportInterface
 {
@@ -38,9 +38,9 @@ class VietGuysTransport implements TransportInterface
                 $content
             );
             $this->logger->debug(
-                'VietGuys text message sent!',
+                'VietGuys requested successfully!',
                 [
-                    'content' => $response,
+                    'Response: ' => $response->translateResultFrom($response->getContent()),
                 ]
             );
         } catch (NumberParseException $ex) {
@@ -91,7 +91,7 @@ class VietGuysTransport implements TransportInterface
 
     private function generateGuid()
     {
-        if (function_exists('com_create_guid') === true) {
+        if (true === function_exists('com_create_guid')) {
             return trim(com_create_guid(), '{}');
         }
 

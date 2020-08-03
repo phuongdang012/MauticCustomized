@@ -3,7 +3,7 @@
 namespace MauticPlugin\MauticVietGuysBundle\Integration;
 
 use Mautic\PluginBundle\Helper\IntegrationHelper;
-use VietGuys\SDK\Exceptions\VietGuysException;
+use MauticPlugin\MauticVietGuysBundle\Integration\SDK\Exceptions\VietGuysException;
 
 class VietGuysConfiguration
 {
