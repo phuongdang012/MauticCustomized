@@ -1,11 +1,11 @@
 <?php
 
-namespace MauticPlugin\MauticStringeeBundle\Integration\Stringee\Rest;
+namespace MauticPlugin\MauticStringeeBundle\Integration\SDK\Rest;
 
 use Exception;
-use MauticPlugin\MauticStringeeBundle\Integration\Stringee\Client\CurlClient;
+use MauticPlugin\MauticStringeeBundle\Integration\SDK\Client\CurlClient;
 
-class RestClient
+class Rest
 {
     const ENV_SID    = 'SID';
     const ENV_SECRET = 'SECRET';
@@ -76,7 +76,7 @@ class RestClient
             'sms' => $smsContent,
         ];
 
-        return $this->getClient()->post($url, json_encode($data), 15);
+        return $this->getClient()->request($url, 'POST', $data, [], 15);
     }
 
     public function getClient()

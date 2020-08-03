@@ -1,8 +1,8 @@
 <?php
 
-namespace MauticPlugin\MauticStringeeBundle\Integration\Stringee\Client;
+namespace MauticPlugin\MauticStringeeBundle\Integration\SDK\Models;
 
-class Response
+class StringeeResponse
 {
     private $headers;
     private $body;

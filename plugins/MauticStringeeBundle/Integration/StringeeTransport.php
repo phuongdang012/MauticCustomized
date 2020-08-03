@@ -8,7 +8,7 @@ use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 use Mautic\LeadBundle\Entity\Lead;
 use Mautic\SmsBundle\Sms\TransportInterface;
-use MauticPlugin\MauticStringeeBundle\Integration\Stringee\Rest\RestClient;
+use MauticPlugin\MauticStringeeBundle\Integration\SDK\Rest\Rest;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber;
 use Psr\Log\LoggerInterface;
 
@@ -74,7 +74,7 @@ class StringeeTransport implements TransportInterface
             return;
         }
 
-        $this->restClient = new RestClient(
+        $this->restClient = new Rest(
             $this->config->getSid(),
             $this->config->getSecret(),
             $this->config->getSender()
