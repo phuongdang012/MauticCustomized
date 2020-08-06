@@ -3,6 +3,8 @@
 !.htaccess
 !.gitkeep
 !/.circleci
+!/index.php
+!/index_dev.php
 .php_cs.cache
 /.env
 /composer.phar
@@ -92,6 +94,7 @@
 !/plugins/MauticStringeeBundle
 !/plugins/MauticVietGuysBundle
 !/plugins/MauticeSMSBundle
+!/plugins/MauticFacebookBusinessBundle
 !/plugins/index.html
 
 /themes/*
