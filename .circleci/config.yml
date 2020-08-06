@@ -29,10 +29,10 @@ jobs:
       - run: sudo docker-php-ext-configure imap --with-kerberos --with-imap-ssl
       - run: sudo docker-php-ext-install imap && docker-php-ext-enable imap
 
-      - run: docker-php-ext-configure gd --with-freetype-dir=/usr/lib --with-png-dir=/usr/lib --with-jpeg-dir=/usr/lib
-      - run: docker-php-ext-install gd
-      - run: docker-php-ext-configure opcache --enable-opcache
-      - run: docker-php-ext-install intl mbstring mysqli pdo_mysql zip opcache bcmath gd sockets
+      - run: sudo docker-php-ext-configure gd --with-freetype-dir=/usr/lib --with-png-dir=/usr/lib --with-jpeg-dir=/usr/lib
+      - run: sudo docker-php-ext-install gd
+      - run: sudo docker-php-ext-configure opcache --enable-opcache
+      - run: sudo docker-php-ext-install intl mbstring mysqli pdo_mysql zip opcache bcmath gd sockets
 
       # Download and cache dependencies
       - restore_cache:
