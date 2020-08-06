@@ -19,17 +19,19 @@ jobs:
 
     steps:
       - checkout
+      # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
 
-      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
-      - run: sudo docker-php-ext-install gd
-      - run: sudo docker-php-ext-install sockets
-      - run: sudo docker-php-ext-install mbstring
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libc-client-dev libkrb5-dev libicu-dev libmcrypt-dev libssl-dev libz-dev libpng-dev libjpeg62-turbo-dev libmagickwand-dev imagemagick libzip-dev libxpm-dev libjpeg-dev libfreetype6-dev cron nano mariadb-client ca-certificates build-essentially software-properties-common zip
+      - run: sudo apt purge -y --auto-remove -o
+      - run: sudo rm -r /var/lib/apt/lists/*
+      - run: sudo docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+      - run: sudo docker-php-ext-install imap && docker-php-ext-enable imap
 
-      - run: sudo apt-get update && sudo apt-get install -y libc-client-dev libkrb5-dev cron nano mariadb-client && sudo rm -r /var/lib/apt/lists/*
-      - run: sudo docker-php-ext-configure imap --with-kerberos --with-imap-ssl && sudo docker-php-ext-install imap && docker-php-ext-enable imap
-
-      - run: docker-php-ext-configure gd --with-freetype-dir=/usr/lib --with-png-dir=/usr/lib --with-jpeg-dir=/usr/lib && docker-php-ext-install gd && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install intl mbstring mysqli pdo_mysql zip opcache bcmath gd && docker-php-ext-enable intl mbstring mysqli pdo_mysql zip opcache bcmath gd
+      - run: docker-php-ext-configure gd --with-freetype-dir=/usr/lib --with-png-dir=/usr/lib --with-jpeg-dir=/usr/lib
+      - run: docker-php-ext-install gd
+      - run: docker-php-ext-configure opcache --enable-opcache
+      - run: docker-php-ext-install intl mbstring mysqli pdo_mysql zip opcache bcmath gd sockets
 
       # Download and cache dependencies
       - restore_cache:
