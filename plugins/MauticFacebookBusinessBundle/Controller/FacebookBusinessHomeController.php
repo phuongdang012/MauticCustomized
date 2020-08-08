@@ -4,17 +4,14 @@ namespace MauticPlugin\MauticFacebookBusinessBundle\Controller;
 
 use Mautic\CoreBundle\Controller\CommonController;
 
-class FacebookBusinessController extends CommonController
+class FacebookBusinessHomeController extends CommonController
 {
-    public function subscribeLeadAction()
-    {
-    }
-
     public function goToHomeAction()
     {
+        return $this->render('./Views/home.html.php');
     }
 
-    public function goToPagesManager()
+    public function loginCallbackAction()
     {
     }
 }

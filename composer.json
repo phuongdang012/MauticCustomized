@@ -109,7 +109,9 @@
     "firebase/php-jwt": "^5.2",
     "php-amqplib/php-amqplib": "^2.11",
     "symfony/apache-pack": "^1.0",
-    "kreait/firebase-bundle": "^2.2"
+    "kreait/firebase-bundle": "^2.2",
+    "facebook/graph-sdk": "^5.7",
+    "facebook/php-business-sdk": "^8.0"
   },
   "require-dev": {
     "symfony/web-profiler-bundle": "~3.4.0",

@@ -20,7 +20,7 @@ class FacebookBusinessIntegration extends AbstractIntegration
 
     public function getIcon()
     {
-        return 'plugins/MauticFacebookBusinessBundle/Assets/img/facebook_business.png';
+        return 'plugins/MauticFacebookBusinessBundle/Assets/img/facebook.png';
     }
 
     public function getAuthenticationType()

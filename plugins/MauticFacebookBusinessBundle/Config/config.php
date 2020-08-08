@@ -1,25 +1,34 @@
 <?php
 
 return [
+    'name'        => 'Facebook Business',
+    'description' => 'Enables integrations between Facebook Business and Mautic',
+    'version'     => '1.0',
+    'author'      => 'Tran Thanh Phuong Dang',
+
     'routes' => [
         'main' => [
             'mautic_facebook_business_home' => [
                 'path'       => '/plugin/facebook-business/home',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusiness:goToHome',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessHome:goToHome',
             ],
             'mautic_facebook_business_pages' => [
                 'path'       => '/plugin/facebook-business/pages',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusiness:goToPagesManager',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessPagesManager:goToPagesManager',
             ],
         ],
         'public' => [
             'mautic_facebook_business_auth_callback' => [
                 'path'       => '/plugin/facebook-business/auth/callback',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusiness:loginCallback',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessHome:loginCallback',
             ],
-            'mautic_facebook_subscriber' => [
-                'path'       => '/plugin/facebook-business/webhooks',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusiness:subscribeLead',
+            'mautic_facebook_page_subscriber' => [
+                'path'       => '/plugin/facebook-business/page/webhooks',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessCommon:subscribeLead',
+            ],
+            'mautic_facebook_messenger_subscriber' => [
+                'path'       => '/plugin/facebook-business/messenger/webhooks',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessCommon:subscribeMessenger',
             ],
         ],
     ],
