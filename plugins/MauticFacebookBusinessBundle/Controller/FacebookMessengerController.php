@@ -4,7 +4,7 @@ namespace MauticPlugin\MauticFacebookBusinessBundle\Controller;
 
 use Mautic\CoreBundle\Controller\CommonController;
 
-class FacebookBusinessPagesManagerController extends CommonController
+class FacebookMessengerController extends CommonController
 {
     const INTEGRATION_NAME = 'FacebookBusiness';
     const APP_ID           = 'app_id';
@@ -21,11 +21,21 @@ class FacebookBusinessPagesManagerController extends CommonController
         $this->keys = $integrationObj->getDecryptedApiKeys();
     }
 
-    public function goToPagesManager()
+    /**
+     * Messenger webhooks function
+     *
+     * @return void
+     */
+    public function subscribeAction()
     {
     }
 
-    private function getAllPages()
+    /**
+     * Login to facebook app
+     *
+     * @return string access_token
+     */
+    public function login()
     {
     }
 }

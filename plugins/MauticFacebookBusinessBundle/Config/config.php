@@ -8,27 +8,27 @@ return [
 
     'routes' => [
         'main' => [
-            'mautic_facebook_business_home' => [
-                'path'       => '/plugin/facebook-business/home',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessHome:goToHome',
-            ],
             'mautic_facebook_business_pages' => [
-                'path'       => '/plugin/facebook-business/pages',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessPagesManager:goToPagesManager',
+                'path'       => '/plugin/facebook-business/manager/pages',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookPage:goToPageManager',
+            ],
+            'mautic_facebook_business_login' => [
+                'path'       => '/plugin/facebook-business/login',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookCommon:goToLogin',
             ],
         ],
         'public' => [
             'mautic_facebook_business_auth_callback' => [
                 'path'       => '/plugin/facebook-business/auth/callback',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessHome:loginCallback',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookCommon:authCallback',
             ],
             'mautic_facebook_page_subscriber' => [
-                'path'       => '/plugin/facebook-business/page/webhooks',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessCommon:subscribeLead',
+                'path'       => '/plugin/facebook-business/webhooks/page',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookPage:subscribe',
             ],
             'mautic_facebook_messenger_subscriber' => [
-                'path'       => '/plugin/facebook-business/messenger/webhooks',
-                'controller' => 'MauticFacebookBusinessBundle:FacebookBusinessCommon:subscribeMessenger',
+                'path'       => '/plugin/facebook-business/webhooks/messenger',
+                'controller' => 'MauticFacebookBusinessBundle:FacebookMessenger:subscribe',
             ],
         ],
     ],
@@ -38,7 +38,7 @@ return [
                 'priority'  => 0,
                 'id'        => 'mautic_facebook_business_root',
                 'iconClass' => 'fa-facebook',
-                'route'     => 'mautic_facebook_business_home',
+                'route'     => 'mautic_facebook_business_login',
                 'checks'    => [
                     'integration' => [
                         'FacebookBusiness' => [
