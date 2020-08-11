@@ -25,7 +25,7 @@ class FacebookBusinessIntegration extends AbstractIntegration
 
     public function getAuthenticationType()
     {
-        return 'oauth2';
+        return 'none';
     }
 
     public function getRequiredKeyFields()
@@ -36,40 +36,40 @@ class FacebookBusinessIntegration extends AbstractIntegration
         ];
     }
 
-    public function getAuthenticationUrl()
-    {
-        return 'https://www.facebook.com/dialog/oauth';
-    }
+    // public function getAuthenticationUrl()
+    // {
+    //     return 'https://www.facebook.com/dialog/oauth';
+    // }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getAccessTokenUrl()
-    {
-        return 'https://graph.facebook.com/oauth/access_token';
-    }
+    // /**
+    //  * {@inheritdoc}
+    //  */
+    // public function getAccessTokenUrl()
+    // {
+    //     return 'https://graph.facebook.com/oauth/access_token';
+    // }
 
-    public function getApiUrl($endpoint)
-    {
-        return "https://graph.facebook.com/$endpoint";
-    }
+    // public function getApiUrl($endpoint)
+    // {
+    //     return "https://graph.facebook.com/$endpoint";
+    // }
 
-    public function getFormType()
-    {
-        return FacebookType::class;
-    }
+    // public function getFormType()
+    // {
+    //     return FacebookType::class;
+    // }
 
-    public function parseCallbackResponse($data, $postAuthorization = false)
-    {
-        // Facebook is inconsistent in that it returns errors as json and data as parameter list
-        $values = parent::parseCallbackResponse($data, $postAuthorization);
+    // public function parseCallbackResponse($data, $postAuthorization = false)
+    // {
+    //     // Facebook is inconsistent in that it returns errors as json and data as parameter list
+    //     $values = parent::parseCallbackResponse($data, $postAuthorization);
 
-        if (null === $values) {
-            parse_str($data, $values);
+    //     if (null === $values) {
+    //         parse_str($data, $values);
 
-            $this->session->set('facebook_access_token', $values);
-        }
+    //         $this->session->set('facebook_access_token', $values);
+    //     }
 
-        return $values;
-    }
+    //     return $values;
+    // }
 }

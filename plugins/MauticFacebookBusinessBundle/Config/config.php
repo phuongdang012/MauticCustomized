@@ -55,6 +55,7 @@ return [
         ],
     ],
     'services' => [
+        'models'       => [],
         'integrations' => [
             'mautic.integration.facebook_business' => [
                 'class'     => \MauticPlugin\MauticFacebookBusinessBundle\Integration\FacebookBusinessIntegration::class,
