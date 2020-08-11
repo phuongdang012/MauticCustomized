@@ -2,6 +2,7 @@
 
 namespace MauticPlugin\MauticFacebookBusinessBundle\Controller;
 
+use FacebookAds\Api;
 use Mautic\CoreBundle\Controller\CommonController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,18 +13,21 @@ class FacebookPageController extends CommonController
     const APP_SECRET       = 'app_secret';
 
     private $keys;
+    private $accessToken;
 
     public function __construct()
     {
         $integrationObj = $this->get('mautic.helper.integration')->getIntegrationObject($this::INTEGRATION_NAME);
-        $accessToken    = $integrationObj->session->get('fb_access_token');
+        $this->keys     = $integrationObj->getDecryptedApiKeys();
+
+        $session     = $this->get('session');
+        $accessToken = $session->get('fb_access_token');
         if (null == $accessToken) {
         }
-        $this->keys = $integrationObj->getDecryptedApiKeys();
     }
 
     /**
-     * Facebook Page webhooks events.
+     * Facebook Page lead form webhooks events.
      *
      * @return void
      */
@@ -38,6 +42,10 @@ class FacebookPageController extends CommonController
 
         $content = $this->request->getContent();
         $data    = json_decode($content, true);
+
+        //Get page token from user token
+
+        //Get page from page token
     }
 
     public function grantPermissionOnPage()

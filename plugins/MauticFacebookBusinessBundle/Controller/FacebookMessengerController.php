@@ -22,20 +22,13 @@ class FacebookMessengerController extends CommonController
     }
 
     /**
-     * Messenger webhooks function
+     * Messenger webhooks function.
      *
      * @return void
      */
     public function subscribeAction()
     {
-    }
-
-    /**
-     * Login to facebook app
-     *
-     * @return string access_token
-     */
-    public function login()
-    {
+        $accessToken = $this->request->get('hub.access_token', '');
+        $challenge   = $this->request->get('hub.challenge', '');
     }
 }
