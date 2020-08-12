@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name'        => 'Facebook Business',
+    'name'        => 'FacebookBusiness',
     'description' => 'Enables integrations between Facebook Business and Mautic',
     'version'     => '1.0',
     'author'      => 'Tran Thanh Phuong Dang',
@@ -55,7 +55,6 @@ return [
         ],
     ],
     'services' => [
-        'models'       => [],
         'integrations' => [
             'mautic.integration.facebook_business' => [
                 'class'     => \MauticPlugin\MauticFacebookBusinessBundle\Integration\FacebookBusinessIntegration::class,

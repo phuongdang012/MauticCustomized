@@ -4,6 +4,10 @@ namespace MauticPlugin\MauticFacebookBusinessBundle\Controller;
 
 use FacebookAds\Api;
 use Mautic\CoreBundle\Controller\CommonController;
+use Mautic\LeadBundle\Entity\Lead;
+use Mautic\LeadBundle\Model\LeadModel;
+use MauticPlugin\MauticFacebookBusinessBundle\Helpers\Helper;
+use MauticPlugin\MauticFacebookBusinessBundle\Model\Webhooks\PostComment;
 use Symfony\Component\HttpFoundation\Response;
 
 class FacebookPageController extends CommonController
@@ -40,20 +44,56 @@ class FacebookPageController extends CommonController
             return new Response($webhookChallenge);
         }
 
-        $content = $this->request->getContent();
-        $data    = json_decode($content, true);
+        $content     = $this->request->getContent();
+        $response    = json_decode($content, true);
+        $postComment = PostComment::parseToObjFrom($response['entry'][0]);
 
-        //Get page token from user token
+        if (count(Helper::extractPhoneNumber($postComment->getMessage())) > 0) {
+            $lead = new Lead();
+            $lead->setNewlyCreated(true);
+            $lead->setFirstName($postComment->getCommenterName());
+            $lead->setPhone(Helper::extractPhoneNumber($postComment->getMessage()));
+            $lead->setId($postComment->getCommenterId());
+            $leadFields = [
+                'firstName' => $lead->getFirstName(),
+                'phone'     => $lead->getPhone(),
+                'id'        => $lead->getId(),
+            ];
+            $leadModel = $this->getModel('lead');
 
-        //Get page from page token
-    }
+            $uniqueLeadFields    = $this->getModel('lead.field')->getUniqueIdentiferFields();
+            $uniqueLeadFieldData = [];
 
-    public function grantPermissionOnPage()
-    {
+            $inList = array_intersect_key($leadFields, $uniqueLeadFields);
+            foreach ($inList as $key => $value) {
+                if (empty($query[$key])) {
+                    unset($inList[$key]);
+                }
+
+                if (array_key_exists($key, $uniqueLeadFields)) {
+                    $uniqueLeadFieldData[$key] = $value;
+                }
+            }
+            if (count($inList) && count($uniqueLeadFieldData)) {
+                $existingLeads = $this->getDoctrine()->getManager()->getRepository('MauticLeadBundle:Lead')->getLeadsByUniqueFields($uniqueLeadFieldData, $leadId);
+                if (!empty($existingLeads)) {
+                    // Existing found so merge the two leads
+                    $lead = $leadModel->mergeLeads($lead, $existingLeads[0]);
+                }
+                $leadIpAddresses = $lead->getIpAddresses();
+                if (!$leadIpAddresses->contains($ipAddress)) {
+                    $lead->addIpAddress($ipAddress);
+                }
+            }
+            $leadModel->setFieldValues($lead, $leadFields);
+            $leadModel->saveEntity();
+            $leadModel->setCurrentLead($lead);
+        }
     }
 
     public function goToPageManager()
     {
+        return $this->render('MauticFacebookBusinessBundle:PageManager:page_manager.html.php');
     }
 
     public function getAllPagesComments()
