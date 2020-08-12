@@ -1,11 +1,43 @@
 <?php
 
 return [
-    'name'        => 'FacebookBusiness',
+    'name'        => 'Facebook Business',
     'description' => 'Enables integrations between Facebook Business and Mautic',
     'version'     => '1.0',
     'author'      => 'Tran Thanh Phuong Dang',
 
+    'services' => [
+        'forms' => [
+            'plugin.facebook_business.form' => [
+                'class' => 'MauticPlugin\MauticFacebookBusinessBundle\Form\Type\ConfigType',
+                'alias' => 'facebook_business',
+            ],
+        ],
+        'integrations' => [
+            'mautic.integration.facebook_business' => [
+                'class'     => \MauticPlugin\MauticFacebookBusinessBundle\Integration\FacebookBusinessIntegration::class,
+                'arguments' => [
+                    'event_dispatcher',
+                    'mautic.helper.cache_storage',
+                    'doctrine.orm.entity_manager',
+                    'session',
+                    'request_stack',
+                    'router',
+                    'translator',
+                    'logger',
+                    'mautic.helper.encryption',
+                    'mautic.lead.model.lead',
+                    'mautic.lead.model.company',
+                    'mautic.helper.paths',
+                    'mautic.core.model.notification',
+                    'mautic.lead.model.field',
+                    'mautic.plugin.model.integration_entity',
+                    'mautic.lead.model.dnc',
+                    'mautic.helper.integration',
+                ],
+            ],
+        ],
+    ],
     'routes' => [
         'main' => [
             'mautic_facebook_business_pages' => [
@@ -34,50 +66,27 @@ return [
     ],
     'menu' => [
         'main' => [
-            'mautic.plugin.facebook_business' => [
-                'priority'  => 0,
-                'id'        => 'mautic_facebook_business_root',
-                'iconClass' => 'fa-facebook',
-                'route'     => 'mautic_facebook_business_login',
-                'checks'    => [
-                    'integration' => [
-                        'FacebookBusiness' => [
-                            'enabled' => true,
+            'priority'  => 0,
+            'items'     => [
+                'mautic.plugin.facebook_business' => [
+                    'id'        => 'mautic_facebook_business_root',
+                    'iconClass' => 'fa-facebook',
+                    'route'     => 'mautic_facebook_business_login',
+                    'checks'    => [
+                        'parameters' => [
+                            'facebook_business_enabled' => true,
+                        ],
+                    ],
+                    'children' => [
+                        'mautic.plugin.facebook_business.pages' => [
+                            'route' => 'mautic_facebook_business_pages',
                         ],
                     ],
                 ],
             ],
-            'mautic.plugin.facebook_business.pages' => [
-                'priority' => 10,
-                'route'    => 'mautic_facebook_business_pages',
-                'parent'   => 'mautic.plugin.facebook_business',
-            ],
         ],
     ],
-    'services' => [
-        'integrations' => [
-            'mautic.integration.facebook_business' => [
-                'class'     => \MauticPlugin\MauticFacebookBusinessBundle\Integration\FacebookBusinessIntegration::class,
-                'arguments' => [
-                    'event_dispatcher',
-                    'mautic.helper.cache_storage',
-                    'doctrine.orm.entity_manager',
-                    'session',
-                    'request_stack',
-                    'router',
-                    'translator',
-                    'logger',
-                    'mautic.helper.encryption',
-                    'mautic.lead.model.lead',
-                    'mautic.lead.model.company',
-                    'mautic.helper.paths',
-                    'mautic.core.model.notification',
-                    'mautic.lead.model.field',
-                    'mautic.plugin.model.integration_entity',
-                    'mautic.lead.model.dnc',
-                    'mautic.helper.integration',
-                ],
-            ],
-        ],
+    'parameters' => [
+        'facebook_business_enabled' => false,
     ],
 ];

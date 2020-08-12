@@ -28,6 +28,13 @@ class FacebookBusinessIntegration extends AbstractIntegration
         return 'none';
     }
 
+    public function getIdentifierFields()
+    {
+        return [
+            'facebook_business',
+        ];
+    }
+
     public function getRequiredKeyFields()
     {
         return [
