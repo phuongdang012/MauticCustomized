@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\MauticFacebookBusinessBundle\Helpers;
+namespace MauticPlugin\MauticFacebookBusinessBundle\Services;
 
 use Facebook\Facebook;
 

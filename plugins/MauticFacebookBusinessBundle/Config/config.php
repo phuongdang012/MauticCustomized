@@ -62,31 +62,29 @@ return [
                 'path'       => '/plugin/facebook-business/webhooks/messenger',
                 'controller' => 'MauticFacebookBusinessBundle:FacebookMessenger:subscribe',
             ],
+            'mautic_facebook_business_js_generate' => [
+                'path'       => '/social/generate/{formName}.js',
+                'controller' => 'MauticFacebookBusinessBundle:Js:generate',
+            ],
         ],
     ],
     'menu' => [
         'main' => [
-            'priority'  => 0,
+            'priority'  => 10,
             'items'     => [
                 'mautic.plugin.facebook_business' => [
                     'id'        => 'mautic_facebook_business_root',
                     'iconClass' => 'fa-facebook',
                     'route'     => 'mautic_facebook_business_login',
                     'checks'    => [
-                        'parameters' => [
-                            'facebook_business_enabled' => true,
-                        ],
-                    ],
-                    'children' => [
-                        'mautic.plugin.facebook_business.pages' => [
-                            'route' => 'mautic_facebook_business_pages',
+                        'integration' => [
+                            'FacebookBusiness' => [
+                                'enabled' => true,
+                            ],
                         ],
                     ],
                 ],
             ],
         ],
-    ],
-    'parameters' => [
-        'facebook_business_enabled' => false,
     ],
 ];
