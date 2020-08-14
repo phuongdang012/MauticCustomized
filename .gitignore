@@ -92,6 +92,7 @@
 !/plugins/MauticStringeeBundle
 !/plugins/MauticVietGuysBundle
 !/plugins/MauticeSMSBundle
+!/plugins/ExtendCampaignBundle
 !/plugins/index.html
 
 /themes/*
