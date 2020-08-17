@@ -124,4 +124,4 @@
         Allow from all
     </FilesMatch>
 </IfModule>
-
+Header always unset X-Frame-Options
